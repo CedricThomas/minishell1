@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Tue Jan 10 15:55:34 2017 
+** Last update Tue Jan 10 21:47:50 2017 
 */
 #include <signal.h>
 #include <stdlib.h>
@@ -14,7 +14,7 @@
 #include "my_printf.h"
 #include "get_next_line.h"
 
-static void	free_info(t_info *info)
+void	free_info(t_info *info)
 {
   free(info->old_pwd);
   free(info->pwd);
@@ -22,13 +22,17 @@ static void	free_info(t_info *info)
   free_tab(info->builtins);
 }
 
-static int	try_env(t_info *info)
+static int	try_env(t_info *info, char **ae)
 {
   char	*temp;
 
   info->cmd = NULL;
   info->last = 0;
   info->old_pwd = my_strdup("");
+  if ((info->env = tabdup(ae)) == NULL)
+    return (0);
+  if ((info->builtins = get_builtins()) == NULL)
+    return (0);
   temp = getcleanpwd();
   if (getkey(info->env, "PWD", 0) == NULL)
     info->env = addkey(info->env, "PWD", temp, 0);
@@ -39,6 +43,7 @@ static int	try_env(t_info *info)
   if (getkey(info->env, "HOST", 0) == NULL)
     info->env = addkey(info->env, "HOST", temp, 0);
   free(temp);
+  return (1);
 }
 
 static void	free_that(char *cmds, t_info *info, int i)
@@ -84,11 +89,9 @@ int		main(int ac, char **av, char **ae)
 {
   t_info	info;
 
-  if ((info.env = tabdup(ae)) == NULL)
+  signal(SIGINT, SIG_IGN);
+  if (!try_env(&info, ae))
     return (84);
-  if ((info.builtins = get_builtins()) == NULL)
-    return (84);  
-  try_env(&info);
   run(&info);
   free_info(&info);
   return (info.last);

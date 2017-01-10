@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sun Jan  8 18:51:02 2017 
-** Last update Tue Jan 10 10:47:42 2017 
+** Last update Tue Jan 10 21:58:06 2017 
 */
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -63,9 +63,7 @@ static void	oneparams(t_info *info, int index)
   char		*path;
 
   if (!my_strcmp(info->cmd[index].argv[1], "-"))
-    {
-      path = my_strdup(info->old_pwd);
-    }
+    path = my_strdup(info->old_pwd);
   else
     path = my_strdup(info->cmd[index].argv[1]);
   home = getkey(info->env, "HOME", 0);
@@ -96,6 +94,6 @@ unsigned int	cd(t_info *info, int index)
     oneparams(info, index);
   else
     my_puterror("cd: Too many arguments.\n");
-  return (1);
+  return (0);
 }
 

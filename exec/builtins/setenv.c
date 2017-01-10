@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Mon Jan  9 22:22:17 2017 
-** Last update Tue Jan 10 16:03:51 2017 
+** Last update Tue Jan 10 21:59:21 2017 
 */
 #include <stdlib.h>
 #include "mysh.h"
@@ -32,5 +32,5 @@ unsigned int    setenvsh(t_info *info, int index)
       my_puterror("setenv: Too many arguments.\n");
       info->last = 1;
     }
-  return (1);
+  return (0);
 }

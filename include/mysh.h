@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Wed Jan  4 12:56:25 2017 Cédric Thomas
-** Last update Tue Jan 10 16:10:54 2017 
+** Last update Tue Jan 10 21:48:54 2017 
 */
 #ifndef MYSH_H_
 # define MYSH_H_
@@ -30,6 +30,11 @@ typedef struct		s_info
 }			t_info;
 
 typedef struct		stat t_stat;
+
+/*
+**main.c
+*/
+void	free_info(t_info *info);
 
 /*
 **prompt/prompt.c
@@ -104,5 +109,10 @@ unsigned int	setenvsh(t_info *info, int index);
 **exec/builtins/setenv.c
 */
 unsigned int	unsetenvsh(t_info *info, int index);
+
+/*
+**exec/my_exec
+*/
+int	my_exec(t_info *info, int index);
 
 #endif /* !MYSH_H_ */

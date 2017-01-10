@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sun Jan  8 16:44:37 2017 
-** Last update Mon Jan  9 11:08:59 2017 
+** Last update Tue Jan 10 21:59:10 2017 
 */
 #include "my.h"
 #include "mysh.h"
@@ -16,18 +16,18 @@ unsigned int	exitsh(t_info *info, int index)
   unsigned int	rt;
 
   i = -1;
-  rt = 1;
+  rt = 0;
   info->last = 1;
   while (info->cmd[index].argv[++i]);
   if (i == 1)
-    rt = 0;
+    rt = -1;
   else if (i == 2)
     {
       i = -1;
       while (info->cmd[index].argv[1][++i] && is_nb(info->cmd[index].argv[1][i]));
       if (!info->cmd[index].argv[1][i])
 	{
-	  rt = 0;
+	  rt = -1;
 	  info->last = my_getnbr(info->cmd[index].argv[1]);
 	}
       else if (!is_nb(info->cmd[index].argv[1][i]) && i > 0)

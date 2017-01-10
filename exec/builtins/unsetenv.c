@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue Jan 10 11:10:28 2017 
-** Last update Tue Jan 10 16:03:40 2017 
+** Last update Tue Jan 10 21:59:31 2017 
 */
 #include <stdlib.h>
 #include "mysh.h"
@@ -20,5 +20,5 @@ unsigned int    unsetenvsh(t_info *info, int index)
     }
   else
     info->env = deletekey(info->env, info->cmd[index].argv[1], 0);
-  return (1);
+  return (0);
 }

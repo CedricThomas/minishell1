@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sun Jan  8 14:13:47 2017 
-** Last update Tue Jan 10 22:00:03 2017 
+** Last update Tue Jan 10 11:00:59 2017 
 */
 #include <stdlib.h>
 #include "mysh.h"
@@ -43,11 +43,11 @@ int		try_builtins(t_info *info, int index, int *exit)
   i = -1;
   rt = 1;
   get_fct(fct);
-  while (info->builtins[++i] && rt > 0)
+  while (info->builtins[++i] && rt)
     {
       if (!my_strcmp(info->builtins[i], info->cmd[index].argv[0]))
       	rt = fct[i](info, index);
-      if (!my_strcmp("exit", info->cmd[index].argv[0]) && rt < 0)
+      if (!my_strcmp("exit", info->cmd[index].argv[0]) && !rt)
   	*exit = 1;
     }
   return (rt);
@@ -58,7 +58,7 @@ int	exec(t_info *info, int index)
   int	exit;
 
   exit = 0;
-  if (try_builtins(info, index, &exit) > 0)
-    exit = my_exec(info, index);
+  if (try_builtins(info, index, &exit));
+  /*   try_exec(info, index); */
   return (exit);
 }
