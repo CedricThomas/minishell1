@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Mon Nov 21 09:10:01 2016 Cédric Thomas
-** Last update Mon Nov 21 08:20:33 2016 Cédric Thomas
+** Last update Fri Jan  6 16:16:48 2017 
 */
 #include <stdlib.h>
 #include "my.h"
@@ -15,6 +15,8 @@ void	free_tab(char **tab)
   int	i;
 
   i = 0;
+  if (tab == NULL)
+    return ;
   while (tab[i])
     {
       free(tab[i]);

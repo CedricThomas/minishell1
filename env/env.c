@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Wed Jan  4 16:06:24 2017 Cédric Thomas
-** Last update Wed Jan  4 20:56:29 2017 Cédric Thomas
+** Last update Tue Jan 10 10:48:19 2017 
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -17,11 +17,14 @@ int	getkeyindex(char **ae, char *key)
   int	i;
   int	len;
 
-  i = -1;
+  i = 0;
   if (!ae || !key)
     return (-1);
   len = my_strlen(key);
-  while (ae[++i] && my_strncmp(key, ae[i], len));
+  while (ae[i] && my_strncmp(key, ae[i], len))
+    {
+      i += 1;
+    }
   if (!ae[i])
     return (-1);
   return (i);
@@ -33,7 +36,7 @@ char	*getkey(char **ae, char *key, int dup)
   int	len;
   char	*keyvalue;
 
-  if ((index =getkeyindex(ae, key)) < 0)
+  if ((index = getkeyindex(ae, key)) < 0)
     return (NULL);
   len = my_strlen(key);
   if (dup)

@@ -5,12 +5,21 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Wed Jan  4 21:08:27 2017 Cédric Thomas
+## Last update Tue Jan 10 11:10:58 2017 
 ##
 
-SRC	=	str.c		\
-		env.c		\
-		misc.c		\
+SRC	=	env/env.c			\
+		env/key.c			\
+		parse/cmds.c			\
+		parse/args.c			\
+		prompt/prompt.c			\
+		exec/exec.c			\
+		exec/builtins/exit.c		\
+		exec/builtins/cd.c		\
+		exec/builtins/setenv.c		\
+		exec/builtins/unsetenv.c	\
+		misc/str.c			\
+		misc/misc.c			\
 		main.c
 
 

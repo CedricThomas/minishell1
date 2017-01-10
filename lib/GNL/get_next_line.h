@@ -5,11 +5,11 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Tue Jan  3 08:53:46 2017 Cédric Thomas
-** Last update Wed Jan  4 08:37:01 2017 Cédric Thomas
+** Last update Mon Jan  9 10:16:04 2017 
 */
 
 #ifndef READ_SIZE
-# define READ_SIZE 100
+# define READ_SIZE 80
 #endif /* !READ_SIZE */
 
 #ifndef GET_NEXT_LINE_H_

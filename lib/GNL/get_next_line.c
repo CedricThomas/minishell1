@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Tue Jan  3 08:53:51 2017 Cédric Thomas
-** Last update Wed Jan  4 08:43:38 2017 Cédric Thomas
+** Last update Mon Jan  9 09:40:32 2017 
 */
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -15,20 +15,21 @@
 #include <unistd.h>
 #include "get_next_line.h"
 
-int	my_strlen(char *str)
+static int	my_strlen(char *str, char c)
 {
-  int	i;
+  int		i;
 
   i = -1;
   if (str == NULL)
     return (0);
-  while (str[++i] && str[i] != '\n');
+  while (str[++i] && str[i] != c);
   return (i);
 }
 
-int	my_read(const int fd, char *str)
+static int	my_read(const int fd, char *str)
 {
-  int	len;
+  int		len;
+  int		i;
 
   len = read(fd, str, READ_SIZE);
   if (len == -1)
@@ -39,11 +40,11 @@ int	my_read(const int fd, char *str)
   return (1);
 }
 
-int	my_strdec(char *str, char *line)
+static int	my_strdec(char *str, char *line, char **adress)
 {
-  int	i;
-  int	len;
-  int	bool;
+  int		i;
+  int		len;
+  int		bool;
 
   i = -1;
   len = -1;
@@ -63,31 +64,28 @@ int	my_strdec(char *str, char *line)
   if (line == NULL)
     {
       free(str);
-      str = NULL;
+      *adress = NULL;
     }
-  return (i == 0 && !bool ? 1 : 0);
+  return (i == 0 && !bool && str ? 1 : 0);
 }
 
-char	*my_strcat(char *s1, char *s2)
+static char	*my_strcat(char *s1, char *s2)
 {
-  int	len;
-  char	*new;
-  int	i;
+  int		len;
+  char		*new;
+  int		i;
 
-  len = my_strlen(s1) + my_strlen(s2);
+  len = my_strlen(s1, '\0') + my_strlen(s2, '\n');
   i = 0;
   if ((new = malloc(sizeof(char) * (len + 1))) == NULL)
-    {
-      free(s1);
       return (NULL);
-    }
   new[len] = 0;
   while (i < len)
     {
-      if (i < my_strlen(s1))
+      if (i < my_strlen(s1, '\n'))
 	new[i] = s1[i];
       else
-	new[i] = s2[i - my_strlen(s1)];
+	new[i] = s2[i - my_strlen(s1, '\n')];
       i += 1;
     }
   free(s1);
@@ -102,20 +100,22 @@ char		*get_next_line(const int fd)
 
   stop = 1;
   line = NULL;
+  if (READ_SIZE <= 0)
+    return (NULL);
   if (buffer == NULL)
     {
       if ((buffer = malloc(sizeof(char) * (READ_SIZE + 1))) == NULL)
 	return (NULL);
       buffer[0] = 0;
     }
-  while (stop == 1)
+  while (stop == 1 && buffer)
     {
-      if (!my_strlen(buffer))
+      if (!my_strlen(buffer, 0))
 	if ((stop *= my_read(fd, buffer)) == 84)
 	  return (NULL);
-      if (buffer[0] != 0)
+      if (buffer[0])
 	line = my_strcat(line, buffer);
-      stop *= my_strdec(buffer, line);
+      stop *= my_strdec(buffer, line, &buffer);
     }
   return (line);
 }
