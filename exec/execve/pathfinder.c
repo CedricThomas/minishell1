@@ -5,25 +5,31 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue Jan 10 16:30:38 2017 
-** Last update Tue Jan 10 22:54:33 2017 
+** Last update Wed Jan 11 17:18:05 2017 
 */
 #include <signal.h>
 #include <sys/types.h>
-#include <sys/wait.h>
+#include <sys/stat.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include "mysh.h"
 #include "my.h"
 
-void   	check_error(char *pathabs, t_info *info, char *str)
+void		check_error(char *pathabs, t_info *info, char *str)
 {
-  if (pathabs && access(pathabs, F_OK))
+  int		isadir;
+  t_stat	mstat;
+
+  isadir = 0;
+  if (!stat(pathabs, &mstat))
+    isadir = S_ISDIR(mstat.st_mode);
+  if (pathabs && (access(pathabs, F_OK) || !is_in('/', pathabs)))
     {
       my_puterror(str);
       my_puterror(": Command not found.\n");
       info->last = 1;
     }
-  else if (pathabs && access(pathabs, X_OK))
+  else if (pathabs && access(pathabs, X_OK) || isadir)
     {
       my_puterror(str);
       my_puterror(": Permission denied.\n");
@@ -40,7 +46,7 @@ char	*try_path(char *str, char **path, t_info *info)
   i = -1;
   baccess = 0;
   pathabs = NULL;
-  while (path[++i] && !baccess)
+  while (path[++i] && !baccess && !is_in('/', str))
     if (!access(str, X_OK))
       baccess = 1;
     else if (!access(path[i], F_OK))
@@ -83,40 +89,19 @@ char	**replacepath(t_info *info, int index, char **pathabs)
   return (dup);
 }
 
-void		print_out(int value, t_info *info)
-{
-  info->last = value;
-  if (value == SIGSEGV)
-    my_puterror("Segmentation fault\n");
-  else if (value == SIGFPE)
-    my_puterror("Floating exception\n");
-}
-
 int		my_exec(t_info *info, int index)
 {
   char		**dup;
   char		*pathabs;
-  int		pid;
-  int		exit;
+  int		ret;
+  int		status;
 
   info->last = 0;
   dup = replacepath(info, index, &pathabs);
-  if (!info->last && (pid = fork()))
-      if (pid == 0)
-  	{
-  	  signal(SIGINT, SIG_DFL);
-  	  execve(pathabs, dup, info->env);
-	  free(pathabs);
-	  free_tab(dup);
-	  free_info(info);
-  	  return (-1);
-  	}
-      else
-	{
-	  waitpid(pid, &exit, 0);
-	  print_output(exit, info);
-	}
+  ret = 0;
+  if (!info->last)
+    ret = my_fork(dup, pathabs, info);
   free_tab(dup);
   free(pathabs);
-  return (0);
+  return (ret);
 }

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sun Jan  8 18:51:02 2017 
-** Last update Tue Jan 10 21:58:06 2017 
+** Last update Wed Jan 11 11:39:42 2017 
 */
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -83,7 +83,7 @@ static void	oneparams(t_info *info, int index)
   info->last = 0;
 }
 
-unsigned int	cd(t_info *info, int index)
+int	cd(t_info *info, int index)
 {
   char	*pwd;
 

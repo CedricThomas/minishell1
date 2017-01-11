@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Wed Jan  4 12:55:32 2017 Cédric Thomas
-** Last update Mon Jan  9 23:30:47 2017 
+** Last update Wed Jan 11 15:02:42 2017 
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -84,7 +84,7 @@ void	print_prompt(t_info *info)
       prompt = getpromptsys(info->env, prompt);
     }
   prompt = strappend("\e[0;31mmysh\e[0m ", prompt, 2);
-  my_printf("{%d} ", info->last);
+  my_printf("{%u} ", info->last);
   my_putstr(prompt);
   free(prompt);
 }

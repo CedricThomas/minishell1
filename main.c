@@ -5,9 +5,10 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Tue Jan 10 21:47:50 2017 
+** Last update Wed Jan 11 17:41:32 2017 
 */
 #include <signal.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include "my.h"
 #include "mysh.h"
@@ -50,7 +51,7 @@ static void	free_that(char *cmds, t_info *info, int i)
 {
   if (info->cmd && cmds[0])
     free_tab(info->cmd[i].argv);
-  if (info->cmd) 
+  if (info->cmd)
     free(info->cmd[i].cmd);
 }
 
@@ -70,10 +71,6 @@ static int	run(t_info *info)
       while (info->cmd && info->cmd[++i].cmd && !exit)
 	{
 	  exit = exec(info, i);
-	  /* if (i > 0) */
-	  /*   my_printf("--------------------------\n"); */
-	  //	  my_printf("argc : %d, cmd : %s\nargcs :\n", info->cmd[i].argc, info->cmd[i].cmd);
-	  //	  my_show_wordtab(info->cmd[i].argv);
 	  free_that(cmds, info, i);
 	}
       free(info->cmd);
@@ -81,7 +78,8 @@ static int	run(t_info *info)
       if (!exit)
 	print_prompt(info);
     }
-  my_putstr("exit\n");
+  if (isatty(0))
+    my_puterror("exit\n");
   return (exit);
 }
 

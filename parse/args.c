@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Wed Oct 12 12:19:23 2016 Cédric Thomas
-** Last update Tue Jan 10 15:45:04 2017 
+** Last update Wed Jan 11 17:39:40 2017 
 */
 #include <stdlib.h>
 #include "mysh.h"
@@ -88,13 +88,13 @@ char	**split_that(char *str, char **tab, int size)
 }
 
 t_cmmd	*get_args(t_cmmd *cmds)
-{ 
+{
   int	i;
   int	currentsize;
 
   i = -1;
   while (cmds && cmds[++i].cmd)
-    { 
+    {
       currentsize = get_nbr_args(cmds[i].cmd);
       if ((cmds[i].argv = malloc(sizeof(char *) * (currentsize + 1))) == NULL)
       	return (NULL);

@@ -5,14 +5,15 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Mon Jan  9 22:22:17 2017 
-** Last update Tue Jan 10 21:59:21 2017 
+** Last update Wed Jan 11 17:33:36 2017 
 */
 #include <stdlib.h>
 #include "mysh.h"
 #include "my.h"
 
-unsigned int    setenvsh(t_info *info, int index)
+int    setenvsh(t_info *info, int index)
 {
+  info->last = 0;
   if (info->cmd[index].argc == 1 && info->cmd[index].argv)
     my_show_wordtab(info->env);
   else if (info->cmd[index].argc == 2)

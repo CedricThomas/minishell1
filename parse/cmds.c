@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue Jan 10 11:41:20 2017 
-** Last update Tue Jan 10 15:43:37 2017 
+** Last update Wed Jan 11 17:38:55 2017 
 */
 #include <stdlib.h>
 #include "mysh.h"
@@ -22,7 +22,8 @@ int	my_token_len(char *str, char c, int *index)
   while (str[++i + *index] && (str[i + *index] == c && quote
 			       || str[i + *index] != c))
     {
-      if ((quote == 0 && is_in(str[i + *index], QUOTE) || str[i + *index] == quote))
+      if ((quote == 0 && is_in(str[i + *index], QUOTE)
+	   || str[i + *index] == quote))
 	quote = (!quote ? str[i + *index] : 0);
     }
   *index += i;

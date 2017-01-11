@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Tue Jan 10 16:37:02 2017 
+## Last update Wed Jan 11 17:32:30 2017 
 ##
 
 SRC	=	env/env.c			\
@@ -14,11 +14,13 @@ SRC	=	env/env.c			\
 		parse/args.c			\
 		prompt/prompt.c			\
 		exec/exec.c			\
-		exec/fork.c			\
+		exec/execve/pathfinder.c	\
+		exec/execve/my_fork.c		\
 		exec/builtins/exit.c		\
 		exec/builtins/cd.c		\
 		exec/builtins/setenv.c		\
 		exec/builtins/unsetenv.c	\
+		exec/builtins/env.c		\
 		misc/str.c			\
 		misc/misc.c			\
 		main.c

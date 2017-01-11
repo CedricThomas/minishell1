@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sun Jan  8 14:13:47 2017 
-** Last update Tue Jan 10 22:00:03 2017 
+** Last update Wed Jan 11 17:38:07 2017 
 */
 #include <stdlib.h>
 #include "mysh.h"
@@ -13,7 +13,7 @@
 
 char	**get_builtins()
 {
-  char	**builtins; 
+  char	**builtins;
 
   if ((builtins = malloc(sizeof(char *) * (6) )) == NULL)
     return (NULL);
@@ -26,30 +26,31 @@ char	**get_builtins()
   return (builtins);
 }
 
-void	**get_fct(unsigned int	(*fct[6])(t_info *info, int index))
+void	**get_fct(int	(*fct[6])(t_info *info, int index))
 {
   fct[0] = &exitsh;
   fct[1] = &cd;
   fct[2] = &setenvsh;
   fct[3] = &unsetenvsh;
+  fct[4] = &envsh;
 }
 
 int		try_builtins(t_info *info, int index, int *exit)
 {
   int		i;
-  unsigned int	(*fct[6])(t_info *info, int index);
-  unsigned int	rt;
+  int		(*fct[6])(t_info *info, int index);
+  int		rt;
 
   i = -1;
   rt = 1;
   get_fct(fct);
-  while (info->builtins[++i] && rt > 0)
+  while (info->builtins[++i] && rt == 1)
     {
       if (!my_strcmp(info->builtins[i], info->cmd[index].argv[0]))
       	rt = fct[i](info, index);
-      if (!my_strcmp("exit", info->cmd[index].argv[0]) && rt < 0)
-  	*exit = 1;
     }
+  if (rt < 0)
+    *exit = 1;
   return (rt);
 }
 
