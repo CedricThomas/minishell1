@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Wed Jan  4 12:55:32 2017 Cédric Thomas
-** Last update Wed Jan 11 15:02:42 2017 
+** Last update Wed Jan 11 21:55:16 2017 
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -32,7 +32,7 @@ char	*getpromptpwd(char **ae, char *prompt)
     prompt = replaceinstr(prompt, "\\w", pwd);
   while (my_strstr(prompt, "\\e"))
     prompt = replaceinstr(prompt, "\\e", "\e");
-  while (home && my_strstr(prompt, home))
+  while (home && my_strlen(home) && my_strstr(prompt, home))
     prompt = replaceinstr(prompt, home, "~");
   return (prompt);
 }
