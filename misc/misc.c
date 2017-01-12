@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Thu Jan  5 21:14:52 2017 
-** Last update Sun Jan  8 17:50:08 2017 
+** Last update Thu Jan 12 15:27:50 2017 
 */
 #include <stdlib.h>
 #include "my.h"
@@ -46,14 +46,14 @@ char	*my_strndup(char *str, int n)
   return (dup);
 }
 
-int	skipthat(char *str, int *i, char c)
+int	skipthat(char *str, int *i, char *find)
 {
   int	bool;
 
   bool = 0;
-  if (str == NULL)
+  if (str == NULL || find == NULL)
     return (bool);
-  while (str[*i] && str[*i] == c)
+  while (str[*i] && is_in(str[*i], find))
     {
       *i += 1;
       bool = 1;

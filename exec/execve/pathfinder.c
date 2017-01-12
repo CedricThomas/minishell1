@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue Jan 10 16:30:38 2017 
-** Last update Wed Jan 11 17:18:05 2017 
+** Last update Thu Jan 12 20:49:11 2017 Cédric Thomas
 */
 #include <signal.h>
 #include <sys/types.h>
@@ -47,7 +47,7 @@ char	*try_path(char *str, char **path, t_info *info)
   baccess = 0;
   pathabs = NULL;
   while (path[++i] && !baccess && !is_in('/', str))
-    if (!access(str, X_OK))
+    if (!access(str, X_OK) && !my_strncmp(str, "./", 2))
       baccess = 1;
     else if (!access(path[i], F_OK))
       {

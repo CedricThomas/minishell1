@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Wed Jan  4 16:06:24 2017 Cédric Thomas
-** Last update Tue Jan 10 10:48:19 2017 
+** Last update Thu Jan 12 19:29:17 2017 Cédric Thomas
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -21,10 +21,8 @@ int	getkeyindex(char **ae, char *key)
   if (!ae || !key)
     return (-1);
   len = my_strlen(key);
-  while (ae[i] && my_strncmp(key, ae[i], len))
-    {
-      i += 1;
-    }
+  while (ae[i] && (my_strncmp(key, ae[i], len) || ae[i][len] != '='))
+    i += 1;
   if (!ae[i])
     return (-1);
   return (i);
@@ -59,7 +57,7 @@ int	changekey(char **ae, char *key, char *value, int freeit)
     return (0);
   lenkey = my_strlen(key);
   lenvalue = my_strlen(value);
-  while (ae[++i] && my_strncmp(key, ae[i], lenkey));
+  while (ae[++i] && (my_strncmp(key, ae[i], lenkey) || ae[i][lenkey] != '='));
   if (!ae[i])
     return (0);
   newkey = strappend(key, "=", freeit);

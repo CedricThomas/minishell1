@@ -5,12 +5,14 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Wed Jan  4 12:56:25 2017 Cédric Thomas
-** Last update Wed Jan 11 17:32:46 2017 
+** Last update Thu Jan 12 15:33:02 2017 
 */
 #ifndef MYSH_H_
 # define MYSH_H_
 
 #define QUOTE	"\"\'"
+#define CMD_P	";"
+#define ARG_P	" \t"
 
 typedef struct		s_cmmd
 {
@@ -69,14 +71,14 @@ char		*getcleanhostname();
 */
 int		is_full_of(char *str, char c);
 char		*my_strndup(char *str, int n);
-int		skipthat(char *str, int *i, char c);
+int		skipthat(char *str, int *i, char *find);
 char		*my_getstr(int value);
 
 /*
 ** parse/cmds.c
 */
 t_cmmd		*get_token(char *cmds);
-int		my_token_len(char *str, char c, int *index);
+int		my_token_len(char *str, char *find, int *index);
 
 /*
 ** parse/args.c

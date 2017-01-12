@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sun Jan  8 18:51:02 2017 
-** Last update Wed Jan 11 11:39:42 2017 
+** Last update Thu Jan 12 17:28:07 2017 Cédric Thomas
 */
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -20,9 +20,9 @@ static void	print_cderror(char *path)
 
   my_puterror(path);
   if (stat(path, &my_stat) < 0)
-    return (my_puterror(": Aucun fichier ou dossier de ce type.\n"));
+    return (my_puterror(": No such file or directory.\n"));
   if (!S_ISDIR(my_stat.st_mode))
-    return (my_puterror(": N'est pas un dossier.\n"));
+    return (my_puterror(": Not a directory.\n"));
 }
 
 static void	changepwd(t_info *info)

@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Wed Oct 12 12:19:23 2016 Cédric Thomas
-** Last update Wed Jan 11 17:39:40 2017 
+** Last update Thu Jan 12 15:32:30 2017 
 */
 #include <stdlib.h>
 #include "mysh.h"
@@ -54,12 +54,12 @@ int	get_nbr_args(char *str)
     {
       if (quote == 0 && is_in(str[i], QUOTE) || str[i] == quote)
 	quote = (!quote ? str[i] : 0);
-      if (str[i] == ' ' && find && !quote)
+      if (is_in(str[i], ARG_P) && find && !quote)
 	{
 	  words += 1;
 	  find = 0;
 	}
-      if (str[i] == quote || !quote && !is_in(str[i], " "))
+      if (str[i] == quote || !quote && !is_in(str[i], ARG_P))
 	find = 1;
     }
   return (words + find);
@@ -75,10 +75,10 @@ char	**split_that(char *str, char **tab, int size)
   i = -1;
   index = 0;
   lindex = index;
-  skipthat(str, &index, ' ');
+  skipthat(str, &index, ARG_P);
   while (++i < size)
     {
-      len = my_token_len(str, ' ', &index);
+      len = my_token_len(str, ARG_P, &index);
       tab[i] = my_strndup(str + lindex, len);
       tab[i] = dequotificator(tab[i]);
       lindex = index;
