@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Jan 11 10:34:47 2017 
-** Last update Wed Jan 11 16:57:39 2017 
+** Last update Fri Jan 13 07:53:22 2017 Cédric Thomas
 */
 #include <signal.h>
 #include <unistd.h>
@@ -40,7 +40,7 @@ int		father(char **argv, char *name, t_info *info, int son)
     info->last = WEXITSTATUS(wstatus);
   else if (WIFSIGNALED(wstatus))
     {
-      info->last = wstatus + 128;
+      info->last = wstatus;
       check_sig(wstatus);
     }
 }
