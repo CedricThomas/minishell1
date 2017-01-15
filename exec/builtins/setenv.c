@@ -5,11 +5,37 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Mon Jan  9 22:22:17 2017 
-** Last update Wed Jan 11 17:33:36 2017 
+** Last update Sun Jan 15 17:12:56 2017 
 */
 #include <stdlib.h>
 #include "mysh.h"
 #include "my.h"
+
+void	my_setenv(t_info *info, char *key, char *value)
+{
+  int	i;
+
+  i = -1;
+  while (key[++i])
+    {
+      if (i == 0 && !is_betw('A', key[i], 'Z') && !is_betw('a', key[i], 'z'))
+      	{
+      	  my_puterror("setenv: Variable name must begin with a letter.\n");
+      	  return ;
+      	}
+      else if (!is_betw('A', key[i], 'Z')
+      	       && !is_betw('a', key[i], 'z') && !is_betw('0', key[i], '9'))
+      	{
+      	  my_puterror("setenv: Variable name must");
+      	  my_puterror(" contain alphanumeric characters.\n");
+      	  return ;
+      	}
+    }
+  if (getkey(info->env, key, 0) == NULL)
+    info->env = addkey(info->env, key, value, 0);
+  else
+    changekey(info->env, key, value, 0);
+}
 
 int    setenvsh(t_info *info, int index)
 {
@@ -17,17 +43,9 @@ int    setenvsh(t_info *info, int index)
   if (info->cmd[index].argc == 1 && info->cmd[index].argv)
     my_show_wordtab(info->env);
   else if (info->cmd[index].argc == 2)
-    if (getkey(info->env, info->cmd[index].argv[1], 0) == NULL)
-      info->env = addkey(info->env, info->cmd[index].argv[1], "", 0);
-    else
-      changekey(info->env, info->cmd[index].argv[1], "", 0);
+    my_setenv(info, info->cmd[index].argv[1], "");
   else if (info->cmd[index].argc == 3)
-    if (getkey(info->env, info->cmd[index].argv[1], 0) == NULL)
-      info->env = addkey(info->env, info->cmd[index].argv[1],
-			 info->cmd[index].argv[2], 0);
-    else
-      changekey(info->env, info->cmd[index].argv[1],
-		info->cmd[index].argv[2], 0);
+    my_setenv(info, info->cmd[index].argv[1], info->cmd[index].argv[2]);
   else
     {
       my_puterror("setenv: Too many arguments.\n");

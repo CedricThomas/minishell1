@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue Jan 10 11:10:28 2017 
-** Last update Wed Jan 11 17:33:46 2017 
+** Last update Sun Jan 15 15:45:50 2017 
 */
 #include <stdlib.h>
 #include "mysh.h"
@@ -13,6 +13,9 @@
 
 int    unsetenvsh(t_info *info, int index)
 {
+  int	i;
+
+  i = 0;
   info->last = 0;
   if (info->cmd[index].argc <= 1)
     {
@@ -20,6 +23,7 @@ int    unsetenvsh(t_info *info, int index)
       my_puterror("unsetenv: Too few arguments.\n");
     }
   else
-    info->env = deletekey(info->env, info->cmd[index].argv[1], 0);
+    while (info->cmd[index].argv[++i])
+      info->env = deletekey(info->env, info->cmd[index].argv[i], 0);
   return (0);
 }
