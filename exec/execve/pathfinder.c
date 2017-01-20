@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue Jan 10 16:30:38 2017 
-** Last update Thu Jan 12 20:49:11 2017 Cédric Thomas
+** Last update Mon Jan 16 16:51:23 2017 
 */
 #include <signal.h>
 #include <sys/types.h>

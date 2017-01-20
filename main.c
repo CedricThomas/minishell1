@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Wed Jan 11 17:41:32 2017 
+** Last update Thu Jan 19 23:39:19 2017 Cédric Thomas
 */
 #include <signal.h>
 #include <unistd.h>
@@ -78,7 +78,7 @@ static int	run(t_info *info)
       if (!exit)
 	print_prompt(info);
     }
-  if (isatty(0))
+  if (isatty(0) && exit >= 0)
     my_puterror("exit\n");
   return (exit);
 }

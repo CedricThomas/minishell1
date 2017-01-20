@@ -5,11 +5,12 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sun Jan  8 18:51:02 2017 
-** Last update Thu Jan 12 17:28:07 2017 Cédric Thomas
+** Last update Tue Jan 17 13:29:33 2017 Cédric Thomas
 */
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include "mysh.h"
 #include "my.h"
@@ -23,6 +24,8 @@ static void	print_cderror(char *path)
     return (my_puterror(": No such file or directory.\n"));
   if (!S_ISDIR(my_stat.st_mode))
     return (my_puterror(": Not a directory.\n"));
+  if (access(path, R_OK))
+    return (my_puterror(": Permission denied.\n"));
 }
 
 static void	changepwd(t_info *info)
