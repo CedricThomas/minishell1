@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Jan 11 10:34:47 2017 
-** Last update Fri Jan 20 09:11:32 2017 Cédric Thomas
+** Last update Fri Jan 20 09:59:00 2017 Cédric Thomas
 */
 #include <errno.h>
 #include <stdio.h>
@@ -21,11 +21,7 @@ void	check_errno(char *str)
   my_puterror(str);
   my_puterror(": ");
   if (errno == ENOEXEC)
-    {
-      my_puterror(str);
-      my_puterror(": ");
-      my_puterror("cannot execute binary file");
-    }
+    my_puterror("Exec format error. Binary file not executable.");
   my_puterror("\n");
 }
 
