@@ -1,3 +1,4 @@
+
 ##
 ## Makefile for Makefile in /home/cedric/lib
 ## 
@@ -5,7 +6,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Wed Jan 11 17:32:30 2017 
+## Last update Sun Jan 22 14:11:04 2017 
 ##
 
 SRC	=	env/env.c			\
@@ -36,20 +37,19 @@ LIB	=	-lmyprintf -lgnl
 
 INCLUDE	=	-I./include/
 
-CFLAGS	+=	 $(INCLUDE) -g	
+CFLAGS	+=	 $(INCLUDE) -g
 
+all:		$(NAME)
 
-all: $(NAME)
-
-$(NAME): $(OBJ)
-	gcc -o $(NAME) $(OBJ) -L$(LIB_F) $(LIB)
+$(NAME):	$(OBJ)
+		gcc -o $(NAME) $(OBJ) -L$(LIB_F) $(LIB)
 
 clean:
-	rm -f $(OBJ)
+		rm -f $(OBJ)
 
-fclean:	clean
-	rm -f $(NAME)
+fclean:		clean
+		rm -f $(NAME)
 
-re: fclean all
+re: 		fclean all
 
 .PHONE: all clean fclean re
